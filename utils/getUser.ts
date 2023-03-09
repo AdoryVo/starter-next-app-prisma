@@ -1,12 +1,15 @@
 import { cache } from 'react';
+import { prisma } from './client';
 
-export interface User {
-  id: string
-}
-
-export const getUser = cache(async (id: string) => {
-  // const user = await db.user.findUnique({ id });
+export const getUser = cache(async (id: string | number) => {
   // const res = await fetch('/graphql', { method: 'POST', body: '...' })
-  const user = { id }
+  
+  id = Number(id)
+  if (isNaN(id)) {
+    return null
+  }
+
+  const user = await prisma.user.findUnique({ where: { id } })
+
   return user;
 });

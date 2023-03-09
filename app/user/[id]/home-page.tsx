@@ -1,9 +1,11 @@
 'use client'
 
-import type { User } from "@utils/getUser"
+import type{ User } from "@prisma/client"
 
 export default function HomePage({ user }: { user: User }) {
-	return (
-		<>{JSON.stringify(user)}</>
-	)
+  return (
+    <>
+      {JSON.stringify(user)}
+    </>
+  )
 }
