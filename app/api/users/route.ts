@@ -1,5 +1,6 @@
-import { Prisma } from "@prisma/client"
-import { prisma } from "@utils/client"
+import { Prisma } from '@prisma/client'
+
+import { prisma } from '@utils/client'
 
 export async function POST(request: Request) {
   try {
@@ -33,8 +34,6 @@ export async function DELETE(request: Request) {
     return new Response('Success', { status: 201 })
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      console.log(e)
-
       return new Response('Cannot find user', { status: 404 })
     }
 

@@ -1,9 +1,9 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import type{ User } from "@prisma/client"
-import { useState, useTransition } from 'react';
+import type { User } from '@prisma/client'
 import ky from 'ky'
+import { useRouter } from 'next/navigation';
+import { useState, useTransition } from 'react';
 
 export default function UsersTable({ users }: { users: User[] }) {
   const router = useRouter();

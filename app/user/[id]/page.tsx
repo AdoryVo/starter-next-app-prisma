@@ -1,6 +1,8 @@
-import { getUser } from '@utils/getUser';
-import HomePage from './home-page';
 import { notFound } from 'next/navigation'
+
+import HomePage from './home-page';
+
+import { getUser } from '@utils/getUser';
 
 export default async function UserLayout({
   params: { id },
@@ -12,6 +14,6 @@ export default async function UserLayout({
   if (!user) {
     notFound()
   }
-  
+
   return <HomePage user={user} />
 }

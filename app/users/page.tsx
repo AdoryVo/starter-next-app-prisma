@@ -1,8 +1,9 @@
-import { getUsers } from '@utils/getUsers';
-import UsersTable from './users-table';
+import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation'
 
-import { Inter } from 'next/font/google';
+import UsersTable from './users-table';
+
+import { getUsers } from '@utils/getUsers';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,7 +13,7 @@ export default async function Page() {
   if (!users) {
     notFound()
   }
-  
+
   return (
     <main className={inter.className}>
       <UsersTable users={users} />
