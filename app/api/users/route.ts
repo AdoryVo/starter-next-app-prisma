@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 
-import { prisma } from '@utils/client'
+import { json, prisma } from '@utils/server'
 
 export async function POST(request: Request) {
   try {
@@ -10,16 +10,16 @@ export async function POST(request: Request) {
       data
     })
 
-    return new Response('Success', { status: 201 })
+    return json('Success', 201)
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
       if (e.code === 'P2002') {
-        return new Response('Email already exists!', { status: 409 })
+        return json('Email already exists!', 409)
       }
     }
 
-    return new Response('Internal server error', { status: 500 })
+    return json('Internal server error', 500)
   }
 }
 
@@ -31,12 +31,12 @@ export async function DELETE(request: Request) {
       where: data
     })
 
-    return new Response('Success', { status: 201 })
+    return json('Success', 201)
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return new Response('Cannot find user', { status: 404 })
+      return json('Cannot find user', 404)
     }
 
-    return new Response('Internal server error', { status: 500 })
+    return json('Internal server error', 500)
   }
 }

@@ -1,48 +1,31 @@
 'use client'
 
 import type { User } from '@prisma/client'
-import ky from 'ky'
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
+
+import { createUser, deleteUser } from './mutations';
+
+import { useMutator } from '@utils/useMutator';
 
 export default function UsersTable({ users }: { users: User[] }) {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
+  const { isMutating, handleMutate } = useMutator()
 
   const [email, setEmail] = useState('')
 
-  // Create inline loading UI
-  const isMutating = isFetching || isPending;
-
-  async function handleCreateUser() {
-    setIsFetching(true);
-    // Mutate external data source
-    await ky.post('/api/users', { json: { email } }).catch((err) => {
-      err.response.text().then((text: string) => console.error(text))
-    });
-    setIsFetching(false);
-
-    startTransition(() => {
-      // Refresh the current route and fetch new data from the server without
-      // losing client-side browser or React state.
-      router.refresh();
-    });
+  function handleCreateUser() {
+    handleMutate(async () => {
+      await createUser(email).catch((err) => {
+        console.log(err.message)
+      })
+    })
   }
 
-  async function handleDeleteUser(id: number) {
-    setIsFetching(true);
-    // Mutate external data source
-    await ky.delete('/api/users', { json: { id } }).catch((err) => {
-      err.response.text().then((text: string) => console.error(text))
-    });
-    setIsFetching(false);
-
-    startTransition(() => {
-      // Refresh the current route and fetch new data from the server without
-      // losing client-side browser or React state.
-      router.refresh();
-    });
+  function handleDeleteUser(id: number) {
+    handleMutate(async () => {
+      await deleteUser(id).catch((err) => {
+        console.log(err.message)
+      })
+    })
   }
 
   return (
