@@ -34,7 +34,9 @@ export async function DELETE(request: Request) {
     return json('Success', 201)
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      return json('Cannot find user', 404)
+      if (e.code === 'P2025') {
+        return json('Cannot find user', 404)
+      }
     }
 
     return json('Internal server error', 500)

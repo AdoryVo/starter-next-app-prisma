@@ -6,10 +6,10 @@ export function useMutator() {
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
 
-  function handleMutate(mutate: Function) {
+  async function handleMutate(mutate: Function) {
     setIsFetching(true);
     // Mutate external data source
-    mutate()
+    await mutate()
     setIsFetching(false);
 
     startTransition(() => {
