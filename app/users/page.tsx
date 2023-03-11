@@ -1,11 +1,13 @@
-import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation'
 
 import UsersTable from './users-table';
 
 import { getUsers } from '@utils/getUsers';
 
-const inter = Inter({ subsets: ['latin'] })
+export const metadata = {
+  title: 'Users',
+  description: 'View users in the database',
+}
 
 export default async function Page() {
   const users = await getUsers();
@@ -15,7 +17,7 @@ export default async function Page() {
   }
 
   return (
-    <main className={inter.className}>
+    <main>
       <UsersTable users={users} />
     </main>
   )
