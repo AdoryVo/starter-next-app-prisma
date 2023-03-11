@@ -1,22 +1,22 @@
-import { useRouter } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation'
+import { useState, useTransition } from 'react'
 
 export function useMutator() {
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+  const [isFetching, setIsFetching] = useState(false)
 
   async function handleMutate(mutate: Function) {
-    setIsFetching(true);
+    setIsFetching(true)
     // Mutate external data source
     await mutate()
-    setIsFetching(false);
+    setIsFetching(false)
 
     startTransition(() => {
       // Refresh the current route and fetch new data from the server without
       // losing client-side browser or React state.
-      router.refresh();
-    });
+      router.refresh()
+    })
   }
 
   return {

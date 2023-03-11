@@ -3,8 +3,8 @@ const nextConfig = {
   eslint: {
     dirs: [
       'app',
-      'utils'
-    ]
+      'utils',
+    ],
   },
   experimental: {
     appDir: true,

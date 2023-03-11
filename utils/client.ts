@@ -12,7 +12,7 @@ export const api = ky.create({
         }
 
         return error
-      }
-    ]
-  }
+      },
+    ],
+  },
 })

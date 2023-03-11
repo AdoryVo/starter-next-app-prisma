@@ -1,6 +1,6 @@
-import { cache } from 'react';
+import { cache } from 'react'
 
-import { prisma } from './server';
+import { prisma } from './server'
 
 export const getUser = cache(async (id: string | number) => {
   // const res = await fetch('/graphql', { method: 'POST', body: '...' })
@@ -12,5 +12,5 @@ export const getUser = cache(async (id: string | number) => {
 
   const user = await prisma.user.findUnique({ where: { id } })
 
-  return user;
-});
+  return user
+})

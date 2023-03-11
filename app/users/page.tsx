@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 
-import UsersTable from './users-table';
+import UsersTable from './users-table'
 
-import { getUsers } from '@utils/getUsers';
+import { getUsers } from '@utils/getUsers'
 
 export const metadata = {
   title: 'Users',
@@ -10,7 +10,7 @@ export const metadata = {
 }
 
 export default async function Page() {
-  const users = await getUsers();
+  const users = await getUsers()
 
   if (!users) {
     notFound()

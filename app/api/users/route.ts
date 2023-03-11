@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const data = await request.json()
 
     await prisma.user.create({
-      data
+      data,
     })
 
     return json('Success', 201)
@@ -28,7 +28,7 @@ export async function DELETE(request: Request) {
     const data = await request.json()
 
     await prisma.user.delete({
-      where: data
+      where: data,
     })
 
     return json('Success', 201)

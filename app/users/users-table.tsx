@@ -1,13 +1,13 @@
 'use client'
 
 import { Link } from '@chakra-ui/next-js'
-import { Box, Button, Container, Heading, Input } from '@chakra-ui/react';
+import { Box, Button, Container, Heading, Input } from '@chakra-ui/react'
 import type { User } from '@prisma/client'
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { createUser, deleteUser } from './mutations';
+import { createUser, deleteUser } from './mutations'
 
-import { useMutator } from '@utils/useMutator';
+import { useMutator } from '@utils/useMutator'
 
 export default function UsersTable({ users }: { users: User[] }) {
   const { isMutating, handleMutate } = useMutator()

@@ -1,7 +1,15 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
+    "@next/next/no-html-link-for-pages": "off",
+    "react/jsx-curly-spacing": ["error", {"when": "never", "children": true}],
+    "react/jsx-equals-spacing": ["error", "never"],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-tag-spacing": "error",
+
+    "comma-dangle": ["error", "always-multiline"],
     "comma-spacing": "error",
+    "eol-last": ["error", "always"],
     "import/order": ["error", {
       "alphabetize": {"order": "asc"},
       "newlines-between": "always"
@@ -12,8 +20,11 @@
     "no-multi-spaces": "error",
     "no-trailing-spaces": "error",
     "object-curly-spacing": ["error", "always"],
-    "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
-    "react/jsx-indent": ["error", 2],
+    "quotes": ["error", "single", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }],
+    "semi": ["error", "never"],
     "space-before-blocks": ["error", "always"],
     "space-in-parens": ["error", "never"]
   }
