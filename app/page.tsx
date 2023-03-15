@@ -1,17 +1,12 @@
-'use client'
+import { getServerSession } from 'next-auth'
 
-import { Link } from '@chakra-ui/next-js'
-import { Button, Container, Heading } from '@chakra-ui/react'
+import Dashboard from './(user)/dashboard'
+import HomePage from './home-page'
 
-export default function Page() {
-  return (
-    <Container mt={5}>
-      <Heading mb={2}>Links</Heading>
-      <Link href="/users" passHref>
-        <Button>
-          Users
-        </Button>
-      </Link>
-    </Container>
-  )
+export default async function Page() {
+  const session = await getServerSession()
+
+  if (!session) return <HomePage />
+
+  return <Dashboard />
 }

@@ -1,16 +1,17 @@
 import { Prisma } from '@prisma/client'
 
-import { json, prisma } from '@utils/server'
+import { prisma } from '@utils/db'
+import { json } from '@utils/server'
 
 export async function POST(request: Request) {
   try {
     const data = await request.json()
 
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data,
     })
 
-    return json('Success', 201)
+    return json(user, 201)
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner

@@ -1,10 +1,8 @@
 import { cache } from 'react'
 
-import { prisma } from './server'
+import { prisma } from './db'
 
 export const getUser = cache(async (id: string | number) => {
-  // const res = await fetch('/graphql', { method: 'POST', body: '...' })
-
   id = Number(id)
   if (isNaN(id)) {
     return null

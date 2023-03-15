@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Posts
 model Post {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
@@ -21,6 +22,28 @@ model Post {
   tags      Tag[]
 }
 
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
+}
+
+// Users
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String?   @unique @db.VarChar(255)
+  password String?   @db.VarChar(255)
+  name     String?  @db.VarChar(255)
+  image    String?
+  
+  profile  Profile?
+  posts    Post[]
+
+  emailVerified DateTime?
+  accounts      Account[]
+  sessions      Session[]
+}
+
 model Profile {
   id     Int     @id @default(autoincrement())
   bio    String?
@@ -28,16 +51,44 @@ model Profile {
   userId Int     @unique
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique @db.VarChar(255)
-  name    String?  @db.VarChar(255)
-  posts   Post[]
-  profile Profile?
+// Auth.js - OAuth
+// https://next-auth.js.org/adapters/prisma
+model Account {
+  id                String @id @default(cuid())
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+
+  // OAuth data
+  refresh_token String?
+  access_token  String?
+  expires_at    Int?
+  token_type    String?
+  scope         String?
+  id_token      String?
+  session_state String?
+
+  // For OAuth 1 providers
+  oauth_token        String?
+  oauth_token_secret String?
+
+  @@unique([provider, providerAccountId])
 }
 
-model Tag {
-  id    Int    @id @default(autoincrement())
-  name  String
-  posts Post[]
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  expires      DateTime
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }

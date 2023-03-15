@@ -25,6 +25,7 @@
       "allowTemplateLiterals": true
     }],
     "semi": ["error", "never"],
+    "sort-imports": ["error", {"ignoreDeclarationSort": true}],
     "space-before-blocks": ["error", "always"],
     "space-in-parens": ["error", "never"]
   }

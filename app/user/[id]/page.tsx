@@ -4,7 +4,7 @@ import HomePage from './home-page'
 
 import { getUser } from '@utils/getUser'
 
-export default async function UserLayout({
+export default async function Page({
   params: { id },
 }: {
   params: { id: string };
