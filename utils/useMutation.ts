@@ -1,12 +1,12 @@
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
-export function useMutator() {
+export function useMutation() {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [isFetching, setIsFetching] = useState(false)
 
-  async function handleMutate(mutate: Function) {
+  async function startMutation(mutate: Function) {
     setIsFetching(true)
     // Mutate external data source
     await mutate()
@@ -21,6 +21,6 @@ export function useMutator() {
 
   return {
     isMutating: isFetching || isPending,
-    handleMutate,
+    startMutation,
   }
 }

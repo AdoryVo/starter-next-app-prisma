@@ -1,6 +1,6 @@
 import ky from 'ky'
 
-// Ky instance for server calls
+// Ky instance for requests to the server
 export const api = ky.create({
   prefixUrl: '/api',
   hooks: {

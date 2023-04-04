@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import type { BuiltInProviderType } from 'next-auth/providers'
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react'
 import { signIn } from 'next-auth/react'
-import { FormEvent, useState } from 'react'
+import { FormEvent } from 'react'
 
 interface Props {
   providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null,
@@ -14,11 +14,12 @@ interface Props {
 export default function SignIn({ providers }: Props) {
   const router = useRouter()
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+    const { email, password } = Object.fromEntries(formData.entries())
 
     signIn('credentials', { email, password, redirect: false }).then((res) => {
       if (!res) {
@@ -44,21 +45,21 @@ export default function SignIn({ providers }: Props) {
             <form id="credentialsForm" onSubmit={handleSubmit}>
               <Divider my={5} />
               <Input
+                name="email"
                 type="email"
                 placeholder="Email"
                 isRequired
-                onChange={(e) => setEmail(e.target.value)}
                 mb={2}
               />
               <Input
+                name="password"
                 type="password"
                 placeholder="Password"
                 isRequired
-                onChange={(e) => setPassword(e.target.value)}
                 mb={2}
               />
               <Button type="submit">
-                Sign in with {provider.name}
+                Sign in with Email
               </Button>
             </form>
           ) : (
